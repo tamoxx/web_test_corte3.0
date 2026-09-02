@@ -128,6 +128,12 @@ function App() {
       : bookings.filter((item) => item.status === adminFilter)
   }, [adminFilter, bookings])
 
+  const bookingStats = useMemo(() => ({
+    total: bookings.length,
+    pending: bookings.filter((item) => item.status === 'pendente').length,
+    confirmed: bookings.filter((item) => item.status === 'confirmado').length,
+  }), [bookings])
+
   const updateBookingForm = (field, value) => {
     setFormMessage('')
     setBookingForm((prev) => {
@@ -561,6 +567,12 @@ function App() {
               </div>
             </div>
 
+            <div className="admin-stats">
+              <div><span>Total</span><strong>{bookingStats.total}</strong></div>
+              <div><span>Pendentes</span><strong>{bookingStats.pending}</strong></div>
+              <div><span>Confirmadas</span><strong>{bookingStats.confirmed}</strong></div>
+            </div>
+
             <div className="admin-table-wrap">
               <table>
                 <thead>
@@ -591,8 +603,14 @@ function App() {
                       </td>
                       <td>
                         <div className="admin-actions">
-                          <button type="button" onClick={() => updateBookingStatus(booking.id, 'confirmado')}>Confirmar</button>
-                          <button type="button" onClick={() => updateBookingStatus(booking.id, 'cancelado')}>Cancelar</button>
+                          {booking.status !== 'confirmado' ? (
+                            <button type="button" onClick={() => updateBookingStatus(booking.id, 'confirmado')}>Confirmar</button>
+                          ) : null}
+                          {booking.status !== 'cancelado' ? (
+                            <button type="button" onClick={() => updateBookingStatus(booking.id, 'cancelado')}>Cancelar</button>
+                          ) : (
+                            <button type="button" onClick={() => updateBookingStatus(booking.id, 'pendente')}>Reabrir</button>
+                          )}
                         </div>
                       </td>
                     </tr>
