@@ -8,6 +8,7 @@ import heroImage from './assets/black-barber-hero.jpg'
 import lowFadeImage from './assets/corte-low-fade.jpg'
 import teamImage from './assets/equipe-black-barber.jpg'
 import frontImage from './assets/barbearia-frente.jpg'
+import interiorImage from './assets/barbearia-interior.jpg'
 import './App.css'
 
 const cuts = [
