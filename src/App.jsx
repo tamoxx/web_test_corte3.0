@@ -12,10 +12,10 @@ import interiorImage from './assets/barbearia-interior.jpg'
 import './App.css'
 
 const cuts = [
-  { id: 1, name: 'Mid Fade', price: 'R$ 55', accent: '#d9a64e', image: lowFadeImage },
-  { id: 2, name: 'Low Fade + Barba', price: 'R$ 65', accent: '#e3b863', image: afterBeforeImage },
-  { id: 3, name: 'High Fade', price: 'R$ 58', accent: '#d4962f', image: lowFadeImage },
-  { id: 4, name: 'Buzz Cut', price: 'R$ 45', accent: '#f0c56a', image: afterBeforeImage },
+  { id: 1, name: 'Mid Fade', price: 'R$ 55', accent: '#d9a64e', image: lowFadeImage, description: 'Transição média com laterais limpas e topo texturizado para um visual equilibrado.', features: ['Fade médio bem marcado', 'Topo com textura natural', 'Contorno preciso'] },
+  { id: 2, name: 'Low Fade + Barba', price: 'R$ 65', accent: '#e3b863', image: afterBeforeImage, description: 'Degradê baixo combinado com barba desenhada para uma presença mais elegante.', features: ['Degradê baixo e discreto', 'Barba alinhada na navalha', 'Acabamento com toalha quente'] },
+  { id: 3, name: 'High Fade', price: 'R$ 58', accent: '#d4962f', image: lowFadeImage, description: 'Laterais altas e contraste definido para um resultado mais marcante e moderno.', features: ['Fade alto nas laterais', 'Contraste bem definido', 'Linha frontal personalizada'] },
+  { id: 4, name: 'Buzz Cut', price: 'R$ 45', accent: '#f0c56a', image: lowFadeImage, description: 'Corte curto, prático e preciso para quem prefere um visual forte e minimalista.', features: ['Comprimento uniforme', 'Acabamento limpo', 'Manutenção rápida'] },
 ]
 
 const services = [
@@ -375,12 +375,10 @@ function App() {
               <p className="eyebrow">BEFORE / AFTER</p>
               <h3>{selectedCut.name}</h3>
               <p>
-                Visual limpo, contorno definido e acabamento premium para um resultado mais moderno e sofisticado.
+                {selectedCut.description}
               </p>
               <ul>
-                <li>Mesma linha de cabelo e estrutura</li>
-                <li>Transição suave e elegante</li>
-                <li>Acabamento em estilo premium</li>
+                {selectedCut.features.map((feature) => <li key={feature}>{feature}</li>)}
               </ul>
             </div>
 
@@ -389,7 +387,7 @@ function App() {
                 className="before-panel"
                 style={{
                   backgroundImage: `url(${afterBeforeImage})`,
-                  backgroundPosition: 'center',
+                  backgroundPosition: 'left center',
                 }}
               >
                 <span>Antes</span>
@@ -399,7 +397,7 @@ function App() {
                 style={{
                   width: `${slider}%`,
                   backgroundImage: `url(${afterBeforeImage})`,
-                  backgroundPosition: 'center',
+                  backgroundPosition: 'right center',
                 }}
               >
                 <span>Depois</span>

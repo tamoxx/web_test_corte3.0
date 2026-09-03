@@ -183,12 +183,22 @@
 .portrait-card {
   position: relative;
   width: min(100%, 560px);
-  min-height: 620px;
+  aspect-ratio: 3 / 2;
   border-radius: 4px;
   background: #151515;
   border: 1px solid rgba(212, 162, 76, 0.25);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 28px 80px rgba(0, 0, 0, 0.52);
   overflow: hidden;
+}
+
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .portrait-glow {
@@ -522,8 +532,8 @@
   border-radius: 2px;
   background-color: #141414;
   background-repeat: no-repeat;
-  background-size: 700% 400%;
-  background-position-y: 0%;
+  background-size: cover;
+  background-position: center;
   border: 1px solid rgba(255, 255, 255, 0.04);
   position: relative;
   overflow: hidden;
@@ -603,19 +613,21 @@
 .after-panel {
   position: absolute;
   inset: 0;
-  background-size: 700% 400%;
+  background-size: 200% 100%;
   background-repeat: no-repeat;
   background-position: 0% 0%;
 }
 
 .before-panel {
   filter: saturate(0.72) brightness(0.72);
+  background-position: left center;
 }
 
 .after-panel {
   inset: 0 auto 0 0;
   width: 52%;
   filter: saturate(1.08) brightness(1.02);
+  background-position: right center;
   border-right: 2px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -726,12 +738,19 @@
   height: 88px;
   margin: 0 auto 18px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f2bf68, #b7721e);
+  background-color: #171717;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #0a0a0a;
   display: grid;
   place-items: center;
   font-weight: 800;
   font-size: 1.8rem;
+}
+
+.barber-avatar span {
+  display: none;
 }
 
 .barber-card h3 {
@@ -1113,7 +1132,7 @@ td small { margin-top: 4px; color: rgba(245, 243, 238, 0.62); }
   }
 
   .portrait-card {
-    min-height: 500px;
+    width: 100%;
   }
 
   .story-details {
