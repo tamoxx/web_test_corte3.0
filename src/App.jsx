@@ -1,12 +1,20 @@
 import { useMemo, useState } from 'react'
-import barberBoard from './assets/Copilot_20260902_202420.png'
+import afterBeforeImage from './assets/antes-e-depois-corte.jpg'
+import barberOneImage from './assets/barbeiro-retrato-1.jpg'
+import barberTwoImage from './assets/barbeiro-retrato-2.jpg'
+import barberThreeImage from './assets/barbeiro-retrato-3.jpg'
+import barberFourImage from './assets/barbeiro-retrato-4.jpg'
+import heroImage from './assets/black-barber-hero.jpg'
+import lowFadeImage from './assets/corte-low-fade.jpg'
+import teamImage from './assets/equipe-black-barber.jpg'
+import frontImage from './assets/barbearia-frente.jpg'
 import './App.css'
 
 const cuts = [
-  { id: 1, name: 'Mid Fade', price: 'R$ 55', accent: '#d9a64e' },
-  { id: 2, name: 'Low Fade', price: 'R$ 50', accent: '#e3b863' },
-  { id: 3, name: 'High Fade', price: 'R$ 58', accent: '#d4962f' },
-  { id: 4, name: 'Buzz Cut', price: 'R$ 45', accent: '#f0c56a' },
+  { id: 1, name: 'Mid Fade', price: 'R$ 55', accent: '#d9a64e', image: lowFadeImage },
+  { id: 2, name: 'Low Fade + Barba', price: 'R$ 65', accent: '#e3b863', image: afterBeforeImage },
+  { id: 3, name: 'High Fade', price: 'R$ 58', accent: '#d4962f', image: lowFadeImage },
+  { id: 4, name: 'Buzz Cut', price: 'R$ 45', accent: '#f0c56a', image: afterBeforeImage },
 ]
 
 const services = [
@@ -35,6 +43,13 @@ const faqs = [
   'É possível alterar ou cancelar o horário?',
   'O atendimento é individual ou em grupo?',
 ]
+
+const location = {
+  name: 'Unidade Jardins',
+  address: 'Alameda Santos, 1180 · Jardins, São Paulo - SP',
+  phone: '(11) 3062-2026',
+  hours: 'Seg a sex: 09h às 20h · Sáb: 09h às 18h',
+}
 
 const schedule = ['09:00', '10:00', '11:30', '13:00', '15:30', '17:00', '18:30']
 const ADMIN_PASSWORD = 'blackbarber2026'
@@ -88,6 +103,14 @@ function getStoredBookings() {
   } catch {
     return fallback
   }
+}
+
+function formatBookingDate(date) {
+  return new Date(`${date}T00:00:00`).toLocaleDateString('pt-BR', {
+    weekday: 'short',
+    day: '2-digit',
+    month: 'short',
+  })
 }
 
 function App() {
@@ -236,9 +259,9 @@ function App() {
         <nav className="main-nav">
           <a href="#inicio">Início</a>
           <a href="#cortes">Cortes</a>
+          <a href="#experiencia">Experiência</a>
+          <a href="#servicos">Serviços</a>
           <a href="#barbeiros">Barbeiros</a>
-          <a href="#avaliacoes">Avaliações</a>
-          <a href="#agendamento">Agendamento</a>
         </nav>
 
         <div className="topbar-actions">
@@ -281,13 +304,8 @@ function App() {
 
           <div className="hero-visual">
             <div className="portrait-card">
+              <img className="hero-photo" src={heroImage} alt="Barbeiro atendendo um cliente na Black Barber" />
               <div className="portrait-glow" />
-              <div className="portrait-image">
-                <div className="head" />
-                <div className="hair" />
-                <div className="neck" />
-                <div className="shirt" />
-              </div>
               <div className="floating-badge">
                 <span>Top barber</span>
                 <strong>Mateus</strong>
@@ -301,6 +319,24 @@ function App() {
           <div><span>Barba</span><strong>Acabamento premium</strong></div>
           <div><span>Ambiente</span><strong>Luxo discreto</strong></div>
           <div><span>Horários</span><strong>Agendamento rápido</strong></div>
+        </section>
+
+        <section id="experiencia" className="story-section">
+          <div className="story-image" style={{ backgroundImage: `url(${teamImage})` }}>
+            <span>BLACK BARBER / EST. 2026</span>
+          </div>
+          <div className="story-copy">
+            <p className="eyebrow">A EXPERIÊNCIA</p>
+            <h2>Mais que um corte. Um ritual de presença.</h2>
+            <p>
+              Técnica precisa, conversa boa e um ambiente feito para desacelerar. Na Black Barber, cada atendimento começa antes da cadeira e termina quando o seu estilo está alinhado.
+            </p>
+            <div className="story-details">
+              <div><strong>01</strong><span>Diagnóstico de estilo</span></div>
+              <div><strong>02</strong><span>Execução personalizada</span></div>
+              <div><strong>03</strong><span>Finalização e cuidado</span></div>
+            </div>
+          </div>
         </section>
 
         <section id="cortes" className="cuts-section">
@@ -322,8 +358,8 @@ function App() {
                   className="mini-portrait"
                   style={{
                     '--cut-accent': cut.accent,
-                    backgroundImage: `url(${barberBoard})`,
-                    backgroundPosition: `${(cut.id - 1) * 16.66}% 0%`,
+                    backgroundImage: `url(${cut.image})`,
+                    backgroundPosition: 'center',
                   }}
                 >
                   <span className="mini-hair" />
@@ -348,14 +384,27 @@ function App() {
             </div>
 
             <div className="comparison-slider" style={{ '--cut-accent': selectedCut.accent }}>
-              <div className="before-panel">
+              <div
+                className="before-panel"
+                style={{
+                  backgroundImage: `url(${afterBeforeImage})`,
+                  backgroundPosition: 'center',
+                }}
+              >
                 <span>Antes</span>
               </div>
-              <div className="after-panel" style={{ width: `${slider}%` }}>
+              <div
+                className="after-panel"
+                style={{
+                  width: `${slider}%`,
+                  backgroundImage: `url(${afterBeforeImage})`,
+                  backgroundPosition: 'center',
+                }}
+              >
                 <span>Depois</span>
               </div>
               <div className="slider-handle" style={{ left: `${slider}%` }}>
-                <span className="handle-knife">✂</span>
+                <span className="handle-knife" aria-hidden="true">↔</span>
               </div>
               <input
                 type="range"
@@ -369,7 +418,7 @@ function App() {
           </div>
         </section>
 
-        <section className="pricing-section">
+        <section id="servicos" className="pricing-section">
           <div className="section-heading">
             <p className="eyebrow">SERVIÇOS</p>
             <h2>Tratamentos pensados para o seu estilo.</h2>
@@ -395,12 +444,42 @@ function App() {
           <div className="barbers-grid">
             {barbers.map((barber) => (
               <article key={barber.name} className="barber-card">
-                <div className="barber-avatar">{barber.initials}</div>
+                <div
+                  className="barber-avatar"
+                  style={{
+                    backgroundImage: `url(${[barberOneImage, barberTwoImage, barberThreeImage, barberFourImage][barbers.indexOf(barber)]})`,
+                  }}
+                >
+                  <span>{barber.initials}</span>
+                </div>
                 <h3>{barber.name}</h3>
                 <p>{barber.role}</p>
                 <span>{barber.instagram}</span>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section id="unidade" className="location-section">
+          <div className="location-copy">
+            <p className="eyebrow">ONDE ESTAMOS</p>
+            <h2>Um endereço à altura do seu ritual.</h2>
+            <p>
+              Um espaço reservado para cuidar do visual com calma, precisão e atendimento próximo. Chegue alguns minutos antes e aproveite a experiência completa.
+            </p>
+            <a href="#agendamento" className="cta">Agendar na unidade</a>
+          </div>
+          <div className="location-card">
+            <div className="location-gallery">
+              <div className="location-photo" style={{ backgroundImage: `url(${frontImage})` }} />
+              <div className="location-photo" style={{ backgroundImage: `url(${interiorImage})` }} />
+            </div>
+            <div className="location-details">
+              <strong>{location.name}</strong>
+              <span>{location.address}</span>
+              <span>{location.phone}</span>
+              <span>{location.hours}</span>
+            </div>
           </div>
         </section>
 
@@ -519,7 +598,7 @@ function App() {
               </div>
               <div>
                 <span>Horário</span>
-                <strong>{bookingForm.date} · {bookingForm.time}</strong>
+                <strong>{formatBookingDate(bookingForm.date)} · {bookingForm.time}</strong>
               </div>
             </div>
 
@@ -628,7 +707,8 @@ function App() {
         </div>
         <div className="footer-links">
           <a href="#inicio">Instagram</a>
-          <a href="#cortes">WhatsApp</a>
+          <a href="#unidade">Unidade</a>
+          <a href="#agendamento">WhatsApp</a>
           <a href="#agendamento">Contato</a>
         </div>
       </footer>
