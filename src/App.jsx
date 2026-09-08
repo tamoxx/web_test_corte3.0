@@ -77,10 +77,6 @@ function getStoredBookings() {
     {
       id: 1,
       customer: 'Carlos M.',
-      phone: '(11) 98888-1010',
-      service: 'Combo',
-      barber: 'Mateus',
-      date: buildDateOptions()[1].value,
       time: '15:30',
       status: 'confirmado',
       notes: 'Corte + barba',
@@ -276,7 +272,7 @@ function App() {
       <main>
         <section id="inicio" className="hero-section">
           <div className="hero-copy">
-            <p className="eyebrow">ESTILO. PRECISÃO. PRESENÇA.</p>
+            <p className="eyebrow"></p>
             <h1>Black Barber.</h1>
             <p className="subtitle">
               Corte moderno, acabamento impecável e um ambiente refinado para quem valoriza presença, técnica e elegância.
@@ -383,23 +379,15 @@ function App() {
             </div>
 
             <div className="comparison-slider" style={{ '--cut-accent': selectedCut.accent }}>
-              <div
-                className="before-panel"
-                style={{
-                  backgroundImage: `url(${afterBeforeImage})`,
-                  backgroundPosition: 'left center',
-                }}
-              >
+              <div className="before-panel">
+                <img src={afterBeforeImage} alt="Visual antes do corte" />
                 <span>Antes</span>
               </div>
               <div
                 className="after-panel"
-                style={{
-                  width: `${slider}%`,
-                  backgroundImage: `url(${afterBeforeImage})`,
-                  backgroundPosition: 'right center',
-                }}
+                style={{ '--reveal': `${slider}%` }}
               >
+                <img src={afterBeforeImage} alt="Visual depois do corte" />
                 <span>Depois</span>
               </div>
               <div className="slider-handle" style={{ left: `${slider}%` }}>

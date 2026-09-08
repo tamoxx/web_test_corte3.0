@@ -602,7 +602,10 @@
 
 .comparison-slider {
   position: relative;
-  height: 420px;
+  width: min(100%, 420px);
+  aspect-ratio: 8 / 9;
+  height: auto;
+  justify-self: center;
   border-radius: 3px;
   overflow: hidden;
   background: linear-gradient(140deg, #181818 0%, #0d0d0d 100%);
@@ -613,22 +616,32 @@
 .after-panel {
   position: absolute;
   inset: 0;
-  background-size: 200% 100%;
-  background-repeat: no-repeat;
-  background-position: 0% 0%;
+  overflow: hidden;
 }
 
-.before-panel {
+.before-panel img,
+.after-panel img {
+  position: absolute;
+  top: 0;
+  width: 200%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.before-panel img {
+  left: 0;
   filter: saturate(0.72) brightness(0.72);
-  background-position: left center;
 }
 
 .after-panel {
-  inset: 0 auto 0 0;
-  width: 52%;
-  filter: saturate(1.08) brightness(1.02);
-  background-position: right center;
+  clip-path: inset(0 calc(100% - var(--reveal)) 0 0);
   border-right: 2px solid rgba(255, 255, 255, 0.18);
+}
+
+.after-panel img {
+  left: -100%;
+  filter: saturate(1.08) brightness(1.02);
 }
 
 .before-panel span,
